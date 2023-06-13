@@ -1,0 +1,638 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+$color-green-100: rgb(126, 213, 111);
+$color-green-200: rgb(85, 197, 122);
+$color-green-300: rgb(40, 180, 133);
+$color-white-200: #f7f7f7;
+$color-gray-100: #d4d4d4;
+$color-gray-200: #919191;
+
+$ff-primary: 'Lato', sans-serif;
+
+@mixin table{
+    @media screen and (width >= 768px) {
+        @content;
+    }
+}
+@mixin dektop{
+    @media screen and (width >= 1024px) {
+        @content;
+    }
+}
+
+body {
+    font-family: $ff-primary;
+    background-color: $color-white-200;
+}
+
+img,
+picture {
+    display: block;
+}
+
+img {
+    object-fit: cover;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    display: inline-block;
+    text-decoration: none;
+}
+
+.container {
+    width: min(90%, 1200px);
+    margin-inline: auto;
+}
+
+.nav {
+    height: 100px;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &__image {
+        width: 100%;
+    }
+
+    &__logo {
+        width: 60%;
+        max-width: 60px;
+    }
+
+
+}
+
+%bg {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.btn {
+    color: black;
+    padding: 1.2rem 2.4rem;
+    border-radius: 30px;
+    background-color: #fff;
+    transition: all 0.4s ease;
+    position: relative;
+    text-transform: uppercase;
+    isolation: isolate;
+
+    &::after {
+        content: '';
+        pointer-events: none;
+        border-radius: 30px;
+        position: absolute;
+        inset: 0;
+        background-color: #fff;
+        opacity: 1;
+        z-index: -1;
+        transition: all 0.4s;
+    }
+
+    &:is(:hover, :focus) {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 28px -2px rgba($color: #000000, $alpha: 0.19);
+
+        &::after {
+            transform: scale(1.8);
+            opacity: 0;
+
+        }
+    }
+
+    &--green {
+        background-color: $color-green-200;
+        color: white;
+
+        &::after {
+            background-color: $color-green-200;
+        }
+
+        &:is(:hover, :focus) {
+            box-shadow: 0 10px 28px -2px rgba($color: $color-gray-200, $alpha: 0.19);
+
+        }
+    }
+
+}
+
+.header {
+    background-image: linear-gradient(135deg, rgba(126, 213, 111, 0.8), rgba(40, 180, 133, 0.8)), url('/img/hero.jpg');
+    @extend %bg;
+    clip-path: polygon(0 0, 100% 0%, 100% 80%, 0 100%);
+
+    &__body {
+        padding: calc(14rem - 100px) 0 14rem;
+        text-align: center;
+        color: white;
+    }
+
+    &__title {
+        position: relative;
+        font-size: clamp(1.6rem,5vw, 4rem);
+        letter-spacing: 12px;
+        font-weight: 400;
+        animation: toRight 0.8s ease;
+        @include table(){
+            letter-spacing: 32px;
+
+        }
+    }
+
+    &__copy {
+        position: relative;
+        letter-spacing: 8px;
+        font-size: .9rem;
+        font-weight: 600;
+        margin: 1.5rem 0 2rem;
+        animation: toLeft 0.8s ease;
+        @include table(){
+            letter-spacing: 16px;
+            font-size: 1.2rem;
+        }
+    }
+
+}
+
+
+
+
+@keyframes toRight {
+    0% {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+
+    50% {
+        transform: translateX(30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes toLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+
+    50% {
+        transform: translateX(-30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.title-animation {
+    background-image: linear-gradient(90deg, $color-green-100, $color-green-200);
+    color: transparent;
+    background-clip: text;
+    text-align: center;
+    margin-bottom: 4rem;
+    font-size: 2rem;
+    letter-spacing: 2px;
+    transition: transform 0.4s ease, text-shadow 0.4s ease;
+
+    &:is(:hover, :focus) {
+        transform: skew(10deg, 4deg);
+        text-shadow: 0 0 25px rgba($color: #000000, $alpha: 0.23);
+
+    }
+
+}
+
+.information {
+    padding: 10rem 0;
+    @include table(){
+        padding: 6rem 0;
+        
+    }
+    &__section {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 3rem;
+    }
+
+    &__body,
+    &__gallery {
+        flex: 1 1 250px;
+    }
+
+    &__subtitle {
+        font-size: 1rem;
+        text-transform: uppercase;
+        margin-bottom: .5rem;
+        color: #848484;
+    }
+
+    &__copy {
+        max-width: 55ch;
+        color: $color-gray-200;
+        line-height: 1.7;
+        margin-bottom: 2rem;
+
+    }
+
+    &__btn {
+        cursor: pointer;
+        padding: .4rem .3rem;
+        border-bottom: 1px solid $color-green-200;
+        color: $color-green-200;
+        transition: all 0.4s;
+
+        &--text {
+            margin-right: .3rem;
+        }
+
+        &:is(:hover, :focus) {
+            background-color: $color-green-200;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -4px rgba($color: #000000, $alpha: 0.19);
+        }
+    }
+
+    &__gallery {
+        position: relative;
+    }
+
+    &__picture,
+    &__image {
+        width: 100%;
+    }
+
+    &__picture {
+        position: absolute;
+        width: 45%;
+        max-width: 300px;
+        box-shadow: -10px 20px 33px 0px rgba($color: #000000, $alpha: 0.25);
+        transition: all 0.4s ease .1s;
+        @include table(){
+            width: 50%;
+        }
+        &:nth-child(2) {
+            top: 15%;
+            right: 0;
+    
+        }
+
+        &:nth-child(3) {
+            top: 45%;
+            left: 50%;
+            transform: translateX(-50%)translateY(15%);
+            @include dektop(){
+                transform: translateX(-50%) translateY(0%);
+
+            }
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 30px;
+            border: 0 solid transparent;
+            transition: all 0.4s;
+        }
+
+        &:is(:hover, :focus) {
+            z-index: 4;
+            transform: scale(1.1);
+
+            &::after {
+                transform: scale(1.3);
+                border: 14px solid $color-green-100;
+
+            }
+        }
+
+        &.middle:is(:hover, :focus) {
+            transform: scale(1.1) translateX(-50%);
+
+            &::after {
+                transform: scale(1.3);
+            }
+        }
+
+    }
+
+
+}
+
+.about {  
+    padding: 18rem 0;
+    margin-top: 4rem;
+    clip-path: polygon(0 10%, 100% 0, 100% 90%, 0 100%);
+    background: linear-gradient(135deg, rgba(126, 213, 111, 0.8), rgba(40, 180, 133, 0.8)), url('/img/nat-4.jpg');
+    @extend %bg;
+    @include table(){
+        margin-top: 0;
+        clip-path: polygon(0 20%, 100% 0, 100% 80%, 0 100%);
+    }
+
+    &__body {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 3.5rem;
+
+    }
+}
+
+.card {
+    flex: 1 1 200px;
+    background-color: #ffffffce;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 18px 35px -7px rgba($color: #000000, $alpha: 0.18);
+    transition: all 0.4s;
+
+    &:is(:hover, :focus) {
+        transform: translateY(-14px) scale(1.03);
+    }
+
+    &__figure {
+        i {
+            font-size: 4rem;
+            background-image: linear-gradient(90deg, rgba(126, 213, 111, 0.8), rgba(40, 180, 133, 0.8));
+            color: transparent;
+            background-clip: text;
+
+        }
+    }
+
+    &__title {
+        margin: 1.4rem 0 .5rem;
+        font-size: 1rem;
+        color: #777676;
+    }
+
+    &__copy {
+        line-height: 1.5;
+        color: $color-gray-200;
+    }
+}
+
+.tours {
+    padding: 4rem 0;
+
+    &__cards {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 3rem;
+    }
+
+    &__footer {
+        margin-top: 3rem;
+        text-align: center;
+    }
+
+
+}
+
+.bg-orange {
+    background-image: linear-gradient(to right bottom, #ffb900, #ff7730);
+}
+
+.bg-green {
+    background-image: linear-gradient(to right bottom, #7ed56f, #28b485);
+}
+
+.bg-blue {
+    background-image: linear-gradient(to right bottom, #2998ff, #5643fa);
+}
+
+.tour {
+    flex: 1 1 250px;
+    position: relative;
+    height: 34rem;
+    perspective: 1000px;
+
+    &__back,
+    &__front {
+        box-shadow: 0 8px 35px -7px rgba($color: #000000, $alpha: 0.10);
+        backface-visibility: hidden;
+        position: absolute;
+        inset: 0;
+        transition: all 0.8s ease;
+    }
+
+    &__front {
+        background-color: #fff;
+    }
+
+    &__back {
+        display: grid;
+        place-items: center;
+    }
+
+    &__back {
+        transform: rotateY(180deg);
+    }
+
+    &__picture {
+        // position: relative;
+        height: 15rem;
+        background-blend-mode: screen;
+        clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+        @extend %bg;
+
+        &--orange {
+            background-image: linear-gradient(to right bottom, #ffb900, #ff7730), url('/img/nat-5.jpg');
+        }
+
+        &--green {
+            background-image: linear-gradient(to right bottom, #7ed56f, #28b485), url('/img/nat-6.jpg');
+        }
+
+        &--blue {
+            background-image: linear-gradient(to right bottom, #2998ff, #5643fa), url('/img/nat-7.jpg');
+        }
+
+    }
+
+    &__body {
+        padding: 1.5rem 4rem;
+        text-align: center;
+        position: relative;
+    }
+
+    &__texts {
+        position: absolute;
+        right: 1rem;
+        top: 0;
+        transform: translateY(-100%);
+        display: grid;
+
+    }
+
+    &__text {
+        justify-self: end;
+        color: white;
+        font-size: 1.8rem;
+        width: max-content;
+        font-weight: 300;
+        z-index: 2;
+        text-transform: uppercase;
+        padding: .4rem;
+
+    }
+
+    &__item {
+        padding: .875rem;
+        border-bottom: 1px solid #d4d4d471;
+        color: $color-gray-200;
+    }
+
+    &__heading {
+        color: white;
+        text-align: center;
+    }
+
+    &__title {
+        text-transform: uppercase;
+        font-size: .875rem;
+        font-weight: 400;
+        letter-spacing: 1px;
+        margin-bottom: .6rem;
+    }
+
+    &__price {
+        font-size: 4rem;
+        font-weight: 100;
+    }
+
+    &:hover {
+        .tour__front {
+            transform: rotateY(180deg);
+        }
+
+        .tour__back {
+            transform: rotateY(360deg);
+        }
+    }
+
+}
+
+.testimonials {
+    position: relative;
+
+    &__videoContent {
+        position: absolute;
+        inset: 0;
+        z-index: -2;
+    }
+
+    &__video {
+        width: 100%;
+        height: 100%;
+        opacity: .16;
+        object-fit: cover;
+    }
+
+    &__body {
+        padding: 10rem 0;
+
+    }
+
+}
+
+.testimonio {
+    width: 90%;
+    max-width: 900px;
+    margin: 0 auto 5rem;
+    padding: 2rem;
+    background-color: #ffffffb7;
+    display: grid;
+    align-items: center;
+    text-align: center;
+    gap: 2rem;
+    @include dektop(){
+        text-align: left;
+        padding: 4rem 5rem;
+        clip-path: polygon(7% 0, 100% 0, 93% 100%, 0% 100%);
+        grid-template-columns: repeat(2, auto);
+
+    }
+    &:is(:hover, :focus) {
+        .testimonio__image {
+            transform: scale(1);
+            filter: blur(4px);
+        }
+
+        .testimonio__text {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+
+    &__picture {
+        position: relative;
+        width: 10rem;
+        border-radius: 50%;
+        overflow: hidden;
+        margin: 0 auto;
+
+    }
+
+    &__text {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-content: center;
+        z-index: 2;
+        color: white;
+        text-transform: uppercase;
+        text-align: center;
+        transform: translateY(20px);
+        opacity: 0;
+        transition: all 0.4s;
+    }
+
+    &__name {
+        line-height: 1.5;
+    }
+
+    &__image {
+        width: 100%;
+        aspect-ratio: 1;
+        transition: all 0.4s ease;
+        transform: scale(1.5);
+
+    }
+
+    &__title {
+        font-size: 1rem;
+        color: $color-gray-200;
+        margin-bottom: 1rem;
+    }
+
+    &__copy {
+        line-height: 1.7;
+        color: #919191;
+    }
+
+}
